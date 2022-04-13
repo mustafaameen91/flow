@@ -44,6 +44,7 @@ app.post("/api/uploadArchive", function (req, res) {
             })
          );
       });
+
       Promise.all(uploadedFiles).then((images) => {
          res.send({ images: images });
       });

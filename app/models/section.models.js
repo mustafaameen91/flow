@@ -2,6 +2,8 @@ const sql = require("./db.js");
 
 const Section = function (section) {
    this.sectionName = section.sectionName;
+   this.code = section.code;
+   this.englishName = section.englishName;
 };
 
 Section.create = (newSection, result) => {

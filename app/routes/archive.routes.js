@@ -3,6 +3,8 @@ module.exports = (app) => {
 
    app.post("/api/addArchive", archive.create);
 
+   app.post("/api/addMultiArchive", archive.createMultiArchive);
+
    app.get("/api/archives", archive.findAll);
 
    app.get("/api/archivesCount", archive.findCount);

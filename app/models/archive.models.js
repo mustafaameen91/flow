@@ -28,6 +28,39 @@ Archive.create = (newArchive, result) => {
    });
 };
 
+Archive.createMulti = (newArchives, result) => {
+   sql.query(
+      "INSERT INTO Archive (from , to	 , archiveDate , archiveSubjectId , archiveNumber , subjectDescription , note , sectionId , archiveTypeId, incomeDate, incomeNumber,yearStudyId,isRead) VALUES ?",
+      [
+         newArchives.map((archive) => [
+            archive.from,
+            archive.to,
+            archive.archiveDate,
+            archive.archiveSubjectId,
+            archive.archiveNumber,
+            archive.subjectDescription,
+            archive.note,
+            archive.sectionId,
+            archive.archiveTypeId,
+            archive.incomeDate,
+            archive.incomeNumber,
+            archive.yearStudyId,
+            archive.isRead,
+         ]),
+      ],
+      (err, res) => {
+         if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+         }
+
+         console.log("created archive: ", { id: res.insertId, ...newArchive });
+         result(null, { id: res.insertId, ...newArchive });
+      }
+   );
+};
+
 //SELECT * ,(select json_arrayagg(json_object('imagePath', ArchiveImage.imagePath,'idArchiveImage' , ArchiveImage.archiveId))) AS images from Archive JOIN ArchiveImage ON Archive.idArchive = ArchiveImage.archiveId GROUP BY Archive.idArchive
 
 Archive.getAll = (result) => {
