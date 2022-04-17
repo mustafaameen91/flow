@@ -30,7 +30,7 @@ Archive.create = (newArchive, result) => {
 
 Archive.createMulti = (newArchives, result) => {
    sql.query(
-      "INSERT INTO Archive (from , to	 , archiveDate , archiveSubjectId , archiveNumber , subjectDescription , note , sectionId , archiveTypeId, incomeDate, incomeNumber,yearStudyId,isRead) VALUES ?",
+      "INSERT INTO Archive (Archive.from , Archive.to, archiveDate , archiveSubjectId , archiveNumber , subjectDescription , note , sectionId , archiveTypeId, incomeDate, incomeNumber,yearStudyId,isRead) VALUES ?",
       [
          newArchives.map((archive) => [
             archive.from,
@@ -45,7 +45,7 @@ Archive.createMulti = (newArchives, result) => {
             archive.incomeDate,
             archive.incomeNumber,
             archive.yearStudyId,
-            archive.isRead,
+            false,
          ]),
       ],
       (err, res) => {
@@ -55,8 +55,8 @@ Archive.createMulti = (newArchives, result) => {
             return;
          }
 
-         console.log("created archive: ", { id: res.insertId, ...newArchive });
-         result(null, { id: res.insertId, ...newArchive });
+         console.log("created archive: ", { id: res.insertId, ...newArchives });
+         result(null, { id: res.insertId, ...newArchives });
       }
    );
 };
