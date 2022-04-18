@@ -15,6 +15,8 @@ module.exports = (app) => {
 
    app.put("/api/archive/:id", archive.update);
 
+   app.put("/api/archiveRead/:id", archive.updateIsRead);
+
    app.delete("/api/archive/:id", archive.delete);
 
    app.delete("/api/archives", archive.deleteAll);

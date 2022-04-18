@@ -20,6 +20,7 @@ exports.create = (req, res) => {
       incomeDate: req.body.incomeDate,
       incomeNumber: req.body.incomeNumber,
       yearStudyId: req.body.yearStudyId,
+      isRead: 0,
    });
 
    Archive.create(archive, (err, data) => {
@@ -113,6 +114,19 @@ exports.searchArchive = (req, res) => {
    });
 };
 
+exports.updateIsRead = (req, res) => {
+   console.log(req.body);
+   if (!req.body) {
+      res.status(400).send({
+         message: "Content can not be empty!",
+      });
+   }
+
+   Archive.updateByIdForRead(req.params.id, req.body.isRead, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
 exports.update = (req, res) => {
    if (!req.body) {
       res.status(400).send({

@@ -13,6 +13,7 @@ const Archive = function (archive) {
    this.incomeDate = archive.incomeDate;
    this.incomeNumber = archive.incomeNumber;
    this.yearStudyId = archive.yearStudyId;
+   this.isRead = 0;
 };
 
 Archive.create = (newArchive, result) => {
@@ -129,6 +130,28 @@ Archive.findById = (archiveId, result) => {
          }
 
          result({ kind: "not_found" }, null);
+      }
+   );
+};
+
+Archive.updateByIdForRead = (id, isRead, result) => {
+   sql.query(
+      `UPDATE Archive SET isRead = ? WHERE idArchive = ?`,
+      [isRead, id],
+      (err, res) => {
+         if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+         }
+
+         if (res.affectedRows == 0) {
+            result({ kind: "not_found" }, null);
+            return;
+         }
+
+         console.log("updated archive: ", { id: id });
+         result(null, { id: id });
       }
    );
 };
