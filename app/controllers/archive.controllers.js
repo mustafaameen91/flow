@@ -94,6 +94,10 @@ exports.searchArchive = (req, res) => {
       search += ` AND archiveTypeId = ${req.query.archiveTypeId * 1}`;
    }
 
+   if (req.query.archiveTypeId == 3) {
+      search += ` OR from = ${req.query.sectionId} OR to = ${req.query.sectionId}`;
+   }
+
    if (req.query.dates) {
       if (req.query.dates.length > 0) {
          console.log(JSON.parse(req.query.dates));
