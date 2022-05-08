@@ -41,12 +41,12 @@ app.post("/api/uploadArchive", function (req, res) {
                   if (err) return res.status(500).send(err);
                   resolve({ imagePath: `archive/${photoName}.${ext}` });
                });
-            })
+            }),
          );
       });
 
       Promise.all(uploadedFiles).then((images) => {
-         res.send({ images: images });
+         res.send(images);
       });
    } else {
       let uploadedFile = req.files.files;
@@ -56,7 +56,7 @@ app.post("/api/uploadArchive", function (req, res) {
       let imagePath = `${__dirname}/app/archive/${photoName}.${ext}`;
       uploadedFile.mv(imagePath, function (err) {
          if (err) return res.status(500).send(err);
-         res.send({ imagePath: `archive/${photoName}.${ext}` });
+         res.send([{ imagePath: `archive/${photoName}.${ext}` }]);
       });
    }
 });

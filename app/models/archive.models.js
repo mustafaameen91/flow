@@ -56,9 +56,32 @@ Archive.createMulti = (newArchives, result) => {
             return;
          }
 
-         console.log("created archive: ", { id: res.insertId, ...newArchives });
-         result(null, { id: res.insertId, ...newArchives });
-      }
+         console.log(res);
+         let archives = [];
+         for (let i = 0; i < res.affectedRows; i++) {
+            let data = {
+               idArchive: res.insertId + i,
+               from: newArchives[i].from,
+               to: newArchives[i].to,
+               archiveDate: newArchives[i].archiveDate,
+               archiveSubjectId: newArchives[i].archiveSubjectId,
+               archiveNumber: newArchives[i].archiveNumber,
+               subjectDescription: newArchives[i].archiveDescription,
+               note: newArchives[i].note,
+               sectionId: newArchives[i].sectionId,
+               archiveTypeId: newArchives[i].archiveTypeId,
+               yearStudyId: newArchives[i].yearStudyId,
+               incomeDate: newArchives[i].incomeDate,
+               incomeNumber: newArchives[i].incomeNumber,
+            };
+            archives.push(data);
+         }
+
+         console.log(archives);
+
+         console.log("created archive: ", archives);
+         result(null, archives);
+      },
    );
 };
 
@@ -76,7 +99,7 @@ Archive.getAll = (result) => {
 
          console.log("archive: ", res[0]);
          result(null, res);
-      }
+      },
    );
 };
 
@@ -92,7 +115,7 @@ Archive.getCount = (result) => {
 
          console.log("archive: ", res[0]);
          result(null, res);
-      }
+      },
    );
 };
 
@@ -109,7 +132,7 @@ Archive.findBySearch = (search, result) => {
 
          console.log("found archive: ", res);
          result(null, res);
-      }
+      },
    );
 };
 
@@ -130,7 +153,7 @@ Archive.findById = (archiveId, result) => {
          }
 
          result({ kind: "not_found" }, null);
-      }
+      },
    );
 };
 
@@ -152,7 +175,7 @@ Archive.updateByIdForRead = (id, isRead, result) => {
 
          console.log("updated archive: ", { id: id });
          result(null, { id: id });
-      }
+      },
    );
 };
 
@@ -174,7 +197,7 @@ Archive.updateById = (id, archive, result) => {
 
          console.log("updated archive: ", { id: id, ...archive });
          result(null, { id: id, ...archive });
-      }
+      },
    );
 };
 

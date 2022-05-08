@@ -37,7 +37,7 @@ ArchiveImage.createMany = async (newArchiveImages, result) => {
             id: res.insertId,
          });
          result(null, { id: res.insertId });
-      }
+      },
    );
 };
 
@@ -71,7 +71,7 @@ ArchiveImage.findById = (archiveImageId, result) => {
          }
 
          result({ kind: "not_found" }, null);
-      }
+      },
    );
 };
 
@@ -93,7 +93,7 @@ ArchiveImage.updateById = (id, archiveImage, result) => {
 
          console.log("updated archiveImage: ", { id: id, ...archiveImage });
          result(null, { id: id, ...archiveImage });
-      }
+      },
    );
 };
 
@@ -115,7 +115,7 @@ ArchiveImage.remove = (id, result) => {
 
          console.log("deleted archiveImage with id: ", id);
          result(null, res);
-      }
+      },
    );
 };
 
