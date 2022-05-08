@@ -24,7 +24,7 @@ ArchiveImage.create = (newArchiveImage, result) => {
 ArchiveImage.createMany = async (newArchiveImages, result) => {
    console.log(newArchiveImages);
    sql.query(
-      "INSERT INTO archiveImage (imagePath ,archiveId) VALUES ?",
+      "INSERT INTO ArchiveImage (imagePath ,archiveId) VALUES ?",
       [newArchiveImages.map((image) => [image.imagePath, image.archiveId])],
       (err, res) => {
          if (err) {
